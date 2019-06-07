@@ -3,7 +3,7 @@
 ###  Matt Radzihovsky, Joey Murphy, Mason Swofford
 Final Project Repository for CS 269Q, Spring 2019
 
-QAOA TSP solution using mixers is implemented in ``tsp_qaoa_updata.py``, based on work presented in Hadfield *et. al* 2017 (paper included above).
+QAOA TSP solution using mixers is implemented in ``tsp_qaoa_updated.py``, based on work presented in Hadfield *et. al* 2017 (paper included above).
 
 QAOA constraint hamiltonian TSP solution is implemented in ``quantum.py``.
 
