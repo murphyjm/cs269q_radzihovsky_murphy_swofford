@@ -61,7 +61,6 @@ python-rapidjson==0.7.0
 pyzmq==18.0.1
 qtconsole==4.4.3
 quantum-grove==1.7.0
-qutip==4.3.1
 requests==2.21.0
 rpcq==2.4.1
 ruamel.yaml==0.15.91

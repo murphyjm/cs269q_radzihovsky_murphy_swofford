@@ -12,6 +12,7 @@ From the original author, Michal Stechly:
 The original implementation of this file
 (found at  https://github.com/mstechly/grove/tree/master/grove/pyqaoa) has been
 updated for use in our CS 269Q final project.
+    - Matt Radzihovsky, Joey Murphy, Mason Swofford, CS 269Q, Spring 2019
 """
 
 import pyquil.api as api
@@ -164,28 +165,28 @@ if __name__ == "__main__":
         STEPS (int): Trotterization order for QAOA
 
     # Example command line call:
-    python tsp_qaoa_updated.py 3 1.0 1
+    python tsp_qaoa_updated.py 3 0.75 1
     """
 
-    # Very slow for NUM_CITIES >= 4. Need to change STEPS = 2 --> 1. why so slow for larger graphs?
+    # Solution is slow NUM_CITIES >= 4. Set STEPS = 1 if NUM_CITIES >= 4
     name, NUM_CITIES, PERCENT_CONNECTED, STEPS = sys.argv
     SAMPLES = 500 # Number of samples to use when finding most frequent path.
     weights, _ = rand_graph(int(NUM_CITIES), percent_connected = float(PERCENT_CONNECTED))
     solution   = solve_tsp(weights, steps=int(STEPS), xtol=10e-2, ftol=10e-2, samples=SAMPLES)
 
+    print()
+    print("Output:")
+    print("=============")
     print("Weight matrix")
     print(weights)
     print("-------------")
     print("The most frequent QAOA solution:")
-    print("({}, {})".format(path_cost(solution, weights), solution))
+    print("(Cost = {}, Path = {})".format(path_cost(solution, weights), solution))
     print("-------------")
 
     # Double check using the brute force classical solution:
     CHECK_CLASSICAL = True
     if CHECK_CLASSICAL:
         print("Classical solution:")
-        print(classical(weights, _, loop=False))
-
-    print('Number of cities = {}'.format(NUM_CITIES))
-    print('Percent connected = {}'.format(PERCENT_CONNECTED))
-    print('Trotterization order = {}'.format(STEPS))
+        classical_cost, classical_path = classical(weights, _, loop=False)
+        print("(Cost = {}, Path = {})".format(classical_cost, classical_path))

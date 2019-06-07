@@ -12,9 +12,7 @@ from collections import Counter
 
 from tsp_qaoa_updated import binary_state_to_points_order
 
-from IPython.core.debugger import set_trace
-# import subprocess
-# subprocess.Popen("/src/qvm/qvm -S > qvm.log 2>&1", shell=True)
+import sys
 
 # returns the bit index for an alpha and j
 def bit(alpha, j):
@@ -76,8 +74,16 @@ def qaoa_cost(params, h_cost, h_driver, init_state_prog):
 
 
 if __name__ == '__main__':
+    """
+    sys.argv ARGS:
+        num_cities (int): number of cities in graph
 
-    num_cities = 3
+    # Example command line call:
+    python quantum.py 3
+    """
+
+    name, num_cities = sys.argv
+    num_cities = int(num_cities)
 
     best_path = None
     best_cost = float("inf")
@@ -95,7 +101,7 @@ if __name__ == '__main__':
     penalty = .01
     h_cost = build_cost(penalty, num_cities, weights, connections)
     h_driver = -1. * sum(sX(i) for i in range(num_bits))
-    result = minimize(qaoa_cost, x0=[.5]*num_params, method='Nelder-Mead')
+    result = minimize(qaoa_cost, x0=[.5]*num_params, args=(h_cost, h_driver, init_state_prog), method='Nelder-Mead')
     betas, gammas = result.x[0:int(num_params/2)], result.x[int(num_params/2):]
 
     qvm = api.QVMConnection()
@@ -116,25 +122,14 @@ if __name__ == '__main__':
             best_quantum_cost = cost
             best_quantum_path = path
             best_bitstring = bitstring
-    print("Best quantum path")
-    print(best_quantum_cost)
-    print(best_quantum_path)
-    print(best_bitstring)
-
-    bitstring_tuples = list(map(tuple, bitstring_samples))
-    freq = Counter(bitstring_tuples)
-    print(freq)
-    most_frequent_bit_string = max(freq, key=lambda x: freq[x])
-    solution = binary_state_to_points_order(most_frequent_bit_string)
-
-    print("number of occurances of our bitstring: ", freq[tuple(best_bitstring)])
-
+    print()
+    print("Output:")
+    print("=============")
     print("Weights")
     print(weights)
     print("-------------")
-    print("Most frequent QAOA path (and bit string):")
-    print(solution)
-    print(most_frequent_bit_string)
+    print("Best quantum path")
+    print("(Cost = {}, Path = {})".format(best_quantum_cost, best_quantum_path))
     print("-------------")
     print("Classical solution:")
-    print("({}, {})".format(best_cost, best_path))
+    print("(Cost = {}, Path = {})".format(best_cost, best_path))
