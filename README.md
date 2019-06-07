@@ -1,5 +1,6 @@
-# CS 269Q Final Project
-## Matt Radzihovsky, Joey Murphy, Mason Swofford
+# A QAOA Solution to the Traveling Salesman Problem using *pyQuil*
+## CS 269Q Final Project
+###  Matt Radzihovsky, Joey Murphy, Mason Swofford
 Final Project Repository for CS 269Q, Spring 2019
 
 # Installation instructions
