@@ -13,8 +13,9 @@ After cloning this repository, users who already have a working installation of 
 ``conda install pip``
 4. Install dependencies listed in the requirements.txt file
 ``pip install —user —requirement requirements.txt``
-5. In another terminal window, activate the same virtual environment and initiate a QVM connection
+5. In another terminal window, activate the same virtual environment.
 ``source activate my_env``
+6. Initiate a QVM connection
 ``qvm -S``
 6. You’re now ready to run the code in the original window. See files for command line argument documentation.
 ``python quantum.py 3``
