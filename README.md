@@ -13,7 +13,7 @@ After cloning this repository, users who already have a working installation of 
 ``conda install pip``
 4. Install dependencies listed in the requirements.txt file
 ``pip install —user —requirement requirements.txt``
-5. In another terminal window, activate the same virtual environment.
+5. In another terminal window, activate the same virtual environment
 ``source activate my_env``
 6. Initiate a QVM connection
 ``qvm -S``
